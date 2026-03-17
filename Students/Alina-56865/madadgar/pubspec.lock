@@ -1,0 +1,25 @@
+# Skills and Technologies Required for Madadgar App
+
+## Skills
+
+1. **Flutter Development**: Proficiency in building cross-platform mobile applications using Flutter and Dart.
+2. **Firebase**: Knowledge of Firebase services including Firestore, Authentication, Cloud Functions, and Cloud Messaging.
+3. **State Management**: Experience with state management solutions such as Riverpod or BLoC.
+4. **UI/UX Design**: Understanding of user interface and user experience design principles to create intuitive and engaging app interfaces.
+5. **Geolocation Services**: Familiarity with geolocation and mapping services, particularly using the Geolocator package and Google Maps.
+6. **RESTful APIs**: Ability to integrate and work with RESTful APIs for backend communication.
+7. **Version Control**: Proficiency in using Git for version control and collaboration.
+8. **Testing**: Knowledge of testing frameworks and practices for Flutter applications, including unit and widget testing.
+
+## Technologies
+
+1. **Flutter**: Framework for building natively compiled applications for mobile, web, and desktop from a single codebase.
+2. **Dart**: Programming language used for developing Flutter applications.
+3. **Firebase**: Backend-as-a-Service platform providing various services like authentication, database, and cloud functions.
+4. **Cloud Firestore**: NoSQL database for storing and syncing data in real-time.
+5. **Firebase Authentication**: Service for authenticating users via phone number and OTP.
+6. **Firebase Cloud Messaging (FCM)**: Service for sending push notifications to users.
+7. **Geolocator**: Flutter package for accessing location services.
+8. **Google Maps**: API for integrating maps and geolocation features into the app.
+9. **Riverpod/BLoC**: State management solutions for managing app state and business logic.
+10. **Flutter Localizations**: Support for internationalization and localization of the app.
