@@ -1,0 +1,13 @@
+{
+  "name": "crossfire-protocol-server",
+  "version": "2.0.0",
+  "description": "Crossfire Protocol - Valorant-style tactical shooter server",
+  "main": "game-server.js",
+  "scripts": {
+    "start": "node game-server.js",
+    "dev": "node game-server.js"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}

@@ -1,426 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CROSSFIRE PROTOCOL</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CROSSFIRE PROTOCOL</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-    <!-- ═══════════════════════════════════════════════ LOADING SCREEN -->
-    <div id="loading-screen" class="screen active">
-      <div class="loading-bg"></div>
-      <div class="loading-content">
-        <div class="logo-container">
-          <div class="logo-line"></div>
-          <div class="logo-text">CROSSFIRE<span>PROTOCOL</span></div>
-          <div class="logo-line"></div>
-        </div>
-        <div class="loading-bar-wrap">
-          <div class="loading-bar" id="loading-bar"></div>
-        </div>
-        <div class="loading-label" id="loading-label">INITIALIZING SYSTEMS...</div>
-      </div>
-      <div class="loading-corner tl"></div>
-      <div class="loading-corner tr"></div>
-      <div class="loading-corner bl"></div>
-      <div class="loading-corner br"></div>
+<!-- ══════════════════════════════════ LOADING -->
+<div id="loading-screen" class="screen active">
+  <div class="loading-bg"></div>
+  <div class="loading-content">
+    <div class="logo-lockup">
+      <div class="logo-line"></div>
+      <div class="logo-wordmark">CROSSFIRE<span>PROTOCOL</span></div>
+      <div class="logo-line"></div>
     </div>
+    <div class="loading-bar-track"><div id="loading-bar" class="loading-bar-fill"></div></div>
+    <div id="loading-label" class="loading-label">INITIALIZING...</div>
+  </div>
+  <div class="corner tl"></div><div class="corner tr"></div>
+  <div class="corner bl"></div><div class="corner br"></div>
+</div>
 
-    <!-- ═══════════════════════════════════════════════ MAIN MENU -->
-    <div id="main-menu" class="screen">
-      <div class="menu-bg">
-        <div class="menu-bg-overlay"></div>
-        <div class="scanlines"></div>
-        <div class="menu-particles" id="menu-particles"></div>
+<!-- ══════════════════════════════════ MAIN MENU -->
+<div id="main-menu" class="screen">
+  <div class="menu-bg">
+    <div class="menu-bg-overlay"></div>
+    <div id="menu-particles" class="menu-particles"></div>
+    <div class="scanlines"></div>
+  </div>
+  <div class="menu-content">
+    <div class="menu-logo-wrap">
+      <div class="menu-logo">CROSSFIRE<span class="logo-accent">◆</span>PROTOCOL</div>
+      <div class="menu-tagline">5V5 TACTICAL SHOOTER</div>
+    </div>
+    <nav class="menu-nav">
+      <button class="menu-btn primary" id="btn-play" onclick="showScreen('agent-select'); setMode('quick')">
+        <span class="btn-bg"></span><span class="btn-icon">▶</span>
+        <span class="btn-text"><span class="btn-label">PLAY</span><span class="btn-sub">VS BOTS</span></span>
+      </button>
+      <button class="menu-btn" id="btn-multi" onclick="showScreen('lobby-screen')">
+        <span class="btn-bg"></span><span class="btn-icon">⇌</span>
+        <span class="btn-text"><span class="btn-label">MULTIPLAYER</span><span class="btn-sub">2 PLAYERS</span></span>
+      </button>
+      <button class="menu-btn" id="btn-htp" onclick="showScreen('howtoplay-screen')">
+        <span class="btn-bg"></span><span class="btn-icon">?</span>
+        <span class="btn-text"><span class="btn-label">HOW TO PLAY</span></span>
+      </button>
+      <button class="menu-btn" id="btn-settings" onclick="showScreen('settings-screen')">
+        <span class="btn-bg"></span><span class="btn-icon">⚙</span>
+        <span class="btn-text"><span class="btn-label">SETTINGS</span></span>
+      </button>
+    </nav>
+    <div class="menu-footer">
+      <span class="footer-tag atk-tag">ATTACKERS</span>
+      <span class="footer-vs">VS</span>
+      <span class="footer-tag def-tag">DEFENDERS</span>
+      <span class="footer-ver">v2.0 · ASHLANDS MAP</span>
+    </div>
+  </div>
+  <div class="spike-orb" id="spike-orb">
+    <div class="orb-core"></div>
+    <div class="orb-ring r1"></div><div class="orb-ring r2"></div><div class="orb-ring r3"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ LOBBY (MULTIPLAYER) -->
+<div id="lobby-screen" class="screen">
+  <div class="modal-bg" onclick="showScreen('main-menu')"></div>
+  <div class="modal-panel lobby-panel">
+    <div class="modal-header">
+      <span class="modal-title">MULTIPLAYER</span>
+      <button class="modal-close" onclick="showScreen('main-menu')">✕</button>
+    </div>
+    <div class="modal-body lobby-body">
+      <div class="lobby-col">
+        <div class="lobby-section-title">CREATE ROOM</div>
+        <p class="lobby-hint">Share the code with your friend</p>
+        <input id="player-name-create" class="lobby-input" placeholder="YOUR NAME" maxlength="16" value="Player1" />
+        <button class="lobby-action-btn" onclick="showScreen('agent-select'); setMode('create')">CREATE ROOM →</button>
       </div>
-
-      <div class="menu-header">
-        <div class="menu-logo">
-          <span class="menu-logo-cp">CROSSFIRE</span>
-          <span class="menu-logo-sep">◆</span>
-          <span class="menu-logo-prot">PROTOCOL</span>
-        </div>
-        <div class="menu-tagline">ENTER THE ZONE · CLAIM VICTORY</div>
-      </div>
-
-      <div class="menu-nav">
-        <button class="menu-btn primary" id="btn-play" onclick="showScreen('agent-select')">
-          <span class="btn-glow"></span>
-          <span class="btn-icon">▶</span>
-          <span class="btn-label">PLAY</span>
-          <span class="btn-sub">QUICK MATCH</span>
-        </button>
-        <button class="menu-btn" id="btn-settings" onclick="showScreen('settings-screen')">
-          <span class="btn-icon">⚙</span>
-          <span class="btn-label">SETTINGS</span>
-        </button>
-        <button class="menu-btn" id="btn-howtoplay" onclick="showScreen('howtoplay-screen')">
-          <span class="btn-icon">?</span>
-          <span class="btn-label">HOW TO PLAY</span>
-        </button>
-      </div>
-
-      <div class="menu-bottom">
-        <div class="menu-version">v1.0.0 — ALPHA</div>
-        <div class="menu-social">
-          <span class="tag attacker-tag">ATTACKERS</span>
-          <span class="vs-text">VS</span>
-          <span class="tag defender-tag">DEFENDERS</span>
-        </div>
-      </div>
-
-      <!-- Animated spike icon -->
-      <div class="spike-icon" id="spike-icon">
-        <div class="spike-core"></div>
-        <div class="spike-ring r1"></div>
-        <div class="spike-ring r2"></div>
-        <div class="spike-ring r3"></div>
+      <div class="lobby-divider"><span>OR</span></div>
+      <div class="lobby-col">
+        <div class="lobby-section-title">JOIN ROOM</div>
+        <p class="lobby-hint">Enter the 4-letter room code</p>
+        <input id="player-name-join" class="lobby-input" placeholder="YOUR NAME" maxlength="16" value="Player2" />
+        <input id="room-code-input" class="lobby-input code-input" placeholder="ROOM CODE" maxlength="4" />
+        <button class="lobby-action-btn" onclick="showScreen('agent-select'); setMode('join')">JOIN ROOM →</button>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- ═══════════════════════════════════════════════ AGENT SELECT -->
-    <div id="agent-select" class="screen">
-      <div class="as-bg"></div>
-      <div class="as-header">
-        <div class="as-title">SELECT YOUR AGENT</div>
-        <div class="as-subtitle">EACH AGENT HAS UNIQUE TACTICAL ABILITIES</div>
-        <div class="as-timer-wrap">
-          <div class="as-timer-label">AUTO-SELECT</div>
-          <div class="as-timer-bar"><div id="as-timer-fill" class="as-timer-fill"></div></div>
-        </div>
+<!-- ══════════════════════════════════ AGENT SELECT -->
+<div id="agent-select" class="screen">
+  <div class="as-bg"></div>
+  <div class="as-header">
+    <button class="as-back-btn" onclick="showScreen('main-menu')">← BACK</button>
+    <div class="as-title">SELECT YOUR AGENT</div>
+    <div class="as-subtitle">EACH AGENT HAS UNIQUE TACTICAL ABILITIES</div>
+    <div class="as-timer-wrap">
+      <div class="as-timer-label">AUTO-SELECT IN</div>
+      <div class="as-timer-bar"><div id="as-timer-fill" class="as-timer-fill"></div></div>
+    </div>
+  </div>
+
+  <div class="as-layout">
+    <!-- Agent roster -->
+    <div class="as-roster">
+      <div class="as-agent selected" data-agent="Inferno" onclick="selectAgent(this)">
+        <div class="agent-card-bg inferno-bg"></div>
+        <div class="agent-silhouette inferno-sil"></div>
+        <div class="agent-card-name">INFERNO</div>
+        <div class="agent-card-role">DUELIST</div>
       </div>
-
-      <div class="as-agents">
-        <div class="as-agent selected" data-agent="Phoenix" onclick="selectAgent(this)">
-          <div class="as-agent-art phoenix-art">
-            <div class="agent-silhouette ph-sil"></div>
-          </div>
-          <div class="as-agent-name">PHOENIX</div>
-          <div class="as-agent-role">Duelist</div>
-        </div>
-        <div class="as-agent" data-agent="Omen" onclick="selectAgent(this)">
-          <div class="as-agent-art omen-art">
-            <div class="agent-silhouette om-sil"></div>
-          </div>
-          <div class="as-agent-name">OMEN</div>
-          <div class="as-agent-role">Controller</div>
-        </div>
-        <div class="as-agent" data-agent="Sage" onclick="selectAgent(this)">
-          <div class="as-agent-art sage-art">
-            <div class="agent-silhouette sg-sil"></div>
-          </div>
-          <div class="as-agent-name">SAGE</div>
-          <div class="as-agent-role">Sentinel</div>
-        </div>
-        <div class="as-agent" data-agent="Jett" onclick="selectAgent(this)">
-          <div class="as-agent-art jett-art">
-            <div class="agent-silhouette jt-sil"></div>
-          </div>
-          <div class="as-agent-name">JETT</div>
-          <div class="as-agent-role">Duelist</div>
-        </div>
-        <div class="as-agent" data-agent="Brimstone" onclick="selectAgent(this)">
-          <div class="as-agent-art brim-art">
-            <div class="agent-silhouette br-sil"></div>
-          </div>
-          <div class="as-agent-name">BRIMSTONE</div>
-          <div class="as-agent-role">Controller</div>
-        </div>
+      <div class="as-agent" data-agent="Specter" onclick="selectAgent(this)">
+        <div class="agent-card-bg specter-bg"></div>
+        <div class="agent-silhouette specter-sil"></div>
+        <div class="agent-card-name">SPECTER</div>
+        <div class="agent-card-role">CONTROLLER</div>
       </div>
-
-      <div class="as-info-panel">
-        <div class="as-selected-name" id="as-selected-name">PHOENIX</div>
-        <div class="as-selected-role" id="as-selected-role">DUELIST</div>
-        <div class="as-abilities">
-          <div class="as-ability">
-            <div class="as-ability-key">3</div>
-            <div class="as-ability-name">DASH</div>
-          </div>
-          <div class="as-ability">
-            <div class="as-ability-key">4</div>
-            <div class="as-ability-name">HEAL</div>
-          </div>
-          <div class="as-ability">
-            <div class="as-ability-key">5</div>
-            <div class="as-ability-name">SMOKE</div>
-          </div>
-        </div>
-        <div class="as-actions">
-          <button class="as-btn-back menu-btn-sm" onclick="showScreen('main-menu')">← BACK</button>
-          <button class="as-btn-lock menu-btn-primary-sm" id="btn-lock-in" onclick="startGame()">
-            <span>LOCK IN</span>
-            <span class="lock-arrow">→</span>
-          </button>
-        </div>
+      <div class="as-agent" data-agent="Solace" onclick="selectAgent(this)">
+        <div class="agent-card-bg solace-bg"></div>
+        <div class="agent-silhouette solace-sil"></div>
+        <div class="agent-card-name">SOLACE</div>
+        <div class="agent-card-role">SENTINEL</div>
+      </div>
+      <div class="as-agent" data-agent="Gust" onclick="selectAgent(this)">
+        <div class="agent-card-bg gust-bg"></div>
+        <div class="agent-silhouette gust-sil"></div>
+        <div class="agent-card-name">GUST</div>
+        <div class="agent-card-role">DUELIST</div>
+      </div>
+      <div class="as-agent" data-agent="Ember" onclick="selectAgent(this)">
+        <div class="agent-card-bg ember-bg"></div>
+        <div class="agent-silhouette ember-sil"></div>
+        <div class="agent-card-name">EMBER</div>
+        <div class="agent-card-role">INITIATOR</div>
       </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════ HOW TO PLAY -->
-    <div id="howtoplay-screen" class="screen">
-      <div class="modal-bg" onclick="showScreen('main-menu')"></div>
-      <div class="modal-panel">
-        <div class="modal-header">
-          <span class="modal-title">HOW TO PLAY</span>
-          <button class="modal-close" onclick="showScreen('main-menu')">✕</button>
+    <!-- Info panel -->
+    <div class="as-info">
+      <div class="as-agent-portrait" id="as-portrait"><div class="portrait-glow" id="portrait-glow"></div></div>
+      <div class="as-agent-name" id="as-agent-name">INFERNO</div>
+      <div class="as-agent-role" id="as-agent-role-label">DUELIST</div>
+      <div class="as-agent-desc" id="as-agent-desc">A Duelist who wields the power of fire. Commands flames to overwhelm, outlast, and outplay the enemy.</div>
+      <div class="as-abilities-grid" id="as-abilities-grid">
+        <div class="as-ab"><div class="as-ab-key">Q</div><div class="as-ab-name" id="ab-q-name">FIREWALL</div><div class="as-ab-desc" id="ab-q-desc">Deploy a wall of fire dealing damage to enemies.</div></div>
+        <div class="as-ab"><div class="as-ab-key">E</div><div class="as-ab-name" id="ab-e-name">BLAZING DASH</div><div class="as-ab-desc" id="ab-e-desc">Teleport forward in aimed direction.</div></div>
+        <div class="as-ab"><div class="as-ab-key">C</div><div class="as-ab-name" id="ab-c-name">EMBER GRENADE</div><div class="as-ab-desc" id="ab-c-desc">Throw a grenade that explodes for AoE damage.</div></div>
+        <div class="as-ab ult-ab"><div class="as-ab-key ult-key">X</div><div class="as-ab-name" id="ab-x-name">PHOENIX BLAST</div><div class="as-ab-desc" id="ab-x-desc">Mark your position — if eliminated, auto-revive here.</div></div>
+      </div>
+      <div class="as-actions">
+        <button class="lock-btn" id="btn-lock-in" onclick="lockIn()">LOCK IN →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ CONNECTING -->
+<div id="connecting-overlay" class="screen">
+  <div class="conn-wrap">
+    <div class="conn-spinner"></div>
+    <div class="conn-label">CONNECTING TO SERVER...</div>
+    <div class="conn-sub" id="conn-sub">Establishing channel</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ WAITING FOR PLAYER 2 -->
+<div id="waiting-screen" class="screen">
+  <div class="conn-wrap">
+    <div class="waiting-code-label">ROOM CODE</div>
+    <div class="waiting-code" id="waiting-code">----</div>
+    <div class="waiting-hint">Share this code with your friend</div>
+    <div class="conn-spinner"></div>
+    <div class="conn-label">WAITING FOR PLAYER 2...</div>
+    <button class="lobby-action-btn cancel-btn" onclick="cancelWait()">CANCEL</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ HOW TO PLAY -->
+<div id="howtoplay-screen" class="screen">
+  <div class="modal-bg" onclick="showScreen('main-menu')"></div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <span class="modal-title">HOW TO PLAY</span>
+      <button class="modal-close" onclick="showScreen('main-menu')">✕</button>
+    </div>
+    <div class="modal-body htp-body">
+      <div class="htp-cols">
+        <div>
+          <div class="htp-st">MOVEMENT</div>
+          <div class="htp-row"><kbd>W A S D</kbd><span>Move</span></div>
+          <div class="htp-row"><kbd>Mouse</kbd><span>Aim</span></div>
+          <div class="htp-row"><kbd>LMB</kbd><span>Shoot</span></div>
+          <div class="htp-row"><kbd>R</kbd><span>Reload</span></div>
+          <div class="htp-st">ABILITIES</div>
+          <div class="htp-row"><kbd>Q / E / C</kbd><span>Agent abilities (click to aim)</span></div>
+          <div class="htp-row"><kbd>X</kbd><span>Ultimate ability</span></div>
         </div>
-        <div class="modal-body htp-body">
-          <div class="htp-section">
-            <div class="htp-section-title">MOVEMENT & COMBAT</div>
-            <div class="htp-grid">
-              <div class="htp-row"><kbd>W A S D</kbd><span>Move</span></div>
-              <div class="htp-row"><kbd>Mouse</kbd><span>Aim</span></div>
-              <div class="htp-row"><kbd>LMB</kbd><span>Shoot</span></div>
-              <div class="htp-row"><kbd>R</kbd><span>Reload</span></div>
-            </div>
-          </div>
-          <div class="htp-section">
-            <div class="htp-section-title">ABILITIES</div>
-            <div class="htp-grid">
-              <div class="htp-row"><kbd>3</kbd><span>Dash forward</span></div>
-              <div class="htp-row"><kbd>4</kbd><span>Heal self</span></div>
-              <div class="htp-row"><kbd>5</kbd><span>Deploy smoke</span></div>
-            </div>
-          </div>
-          <div class="htp-section">
-            <div class="htp-section-title">OBJECTIVE</div>
-            <div class="htp-grid">
-              <div class="htp-row"><kbd>E</kbd><span>Plant / Defuse spike</span></div>
-              <div class="htp-row"><kbd>1</kbd><span>Buy pistol (free)</span></div>
-              <div class="htp-row"><kbd>2</kbd><span>Buy rifle (1200 cr)</span></div>
-            </div>
-          </div>
-          <div class="htp-section">
-            <div class="htp-section-title">WIN CONDITIONS</div>
-            <ul class="htp-list">
-              <li>Eliminate all enemies to win the round</li>
-              <li><span class="attacker-col">Attackers</span> win by planting & detonating the spike</li>
-              <li><span class="defender-col">Defenders</span> win by defusing the spike or eliminating attackers</li>
-              <li>Press <kbd>H</kbd> to toggle the full HUD panel</li>
-            </ul>
-          </div>
+        <div>
+          <div class="htp-st">OBJECTIVE</div>
+          <div class="htp-row"><kbd>F</kbd><span>Plant spike (on site, attacker)</span></div>
+          <div class="htp-row"><kbd>F</kbd><span>Defuse spike (near spike, defender)</span></div>
+          <div class="htp-st">BUY PHASE</div>
+          <div class="htp-row"><kbd>B</kbd><span>Toggle buy menu</span></div>
+          <div class="htp-st">HUD</div>
+          <div class="htp-row"><kbd>TAB</kbd><span>Scoreboard</span></div>
+          <div class="htp-row"><kbd>M</kbd><span>Toggle minimap</span></div>
+          <div class="htp-row"><kbd>ESC</kbd><span>Pause menu</span></div>
+        </div>
+      </div>
+      <div class="htp-st">WIN CONDITIONS</div>
+      <ul class="htp-list">
+        <li><span class="atk-col">Attackers</span> win by planting the spike and letting it detonate OR eliminating all defenders</li>
+        <li><span class="def-col">Defenders</span> win by defusing the spike, eliminating all attackers, or letting time expire</li>
+        <li>First team to <strong>13 rounds</strong> wins the match</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ SETTINGS -->
+<div id="settings-screen" class="screen">
+  <div class="modal-bg" onclick="showScreen('main-menu')"></div>
+  <div class="modal-panel">
+    <div class="modal-header">
+      <span class="modal-title">SETTINGS</span>
+      <button class="modal-close" onclick="showScreen('main-menu')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="setting-group">
+        <div class="setting-label">CROSSHAIR COLOR</div>
+        <div class="swatches">
+          <div class="swatch active" data-color="#f5c542" style="background:#f5c542" onclick="setSetting('crosshairColor',this)"></div>
+          <div class="swatch" data-color="#00ff88" style="background:#00ff88" onclick="setSetting('crosshairColor',this)"></div>
+          <div class="swatch" data-color="#ff4455" style="background:#ff4455" onclick="setSetting('crosshairColor',this)"></div>
+          <div class="swatch" data-color="#4ea6ff" style="background:#4ea6ff" onclick="setSetting('crosshairColor',this)"></div>
+          <div class="swatch" data-color="#ffffff" style="background:#ffffff" onclick="setSetting('crosshairColor',this)"></div>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="setting-label">CROSSHAIR STYLE</div>
+        <div class="setting-btns" id="ch-style-btns">
+          <button class="sett-btn active" data-val="cross" onclick="setSetting('crosshairStyle',this)">+</button>
+          <button class="sett-btn" data-val="dot" onclick="setSetting('crosshairStyle',this)">•</button>
+          <button class="sett-btn" data-val="circle" onclick="setSetting('crosshairStyle',this)">○</button>
+          <button class="sett-btn" data-val="x" onclick="setSetting('crosshairStyle',this)">×</button>
+        </div>
+      </div>
+      <div class="setting-group">
+        <div class="setting-label">HUD OPACITY</div>
+        <input type="range" class="sett-slider" id="hud-opacity-slider" min="40" max="100" value="90" oninput="setSetting('hudOpacity',this)" />
+        <span class="sett-val" id="hud-opacity-val">90%</span>
+      </div>
+      <div class="setting-group">
+        <div class="setting-label">SHOW FPS</div>
+        <label class="toggle-sw"><input type="checkbox" id="fps-toggle" onchange="setSetting('showFps',this)" /><span class="toggle-track"><span class="toggle-thumb"></span></span></label>
+      </div>
+      <div class="setting-group">
+        <div class="setting-label">SERVER ADDRESS</div>
+        <input type="text" id="server-addr" class="lobby-input" value="ws://localhost:3000" style="width:260px" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="lock-btn sm" onclick="showScreen('main-menu')">SAVE &amp; CLOSE</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════ GAME CANVAS -->
+<canvas id="game-canvas"></canvas>
+
+<!-- ══════════════════════════════════ HUD OVERLAY -->
+<div id="game-hud" class="hud hidden">
+
+  <!-- Top bar -->
+  <div class="hud-top">
+    <div class="hud-score-panel">
+      <div class="hud-score atk-score" id="hud-atk-score">0</div>
+      <div class="hud-center-info">
+        <div class="hud-phase-label" id="hud-phase-label">BUY PHASE</div>
+        <div class="hud-timer" id="hud-timer">20</div>
+        <div class="hud-round-label" id="hud-round-label">ROUND 1</div>
+      </div>
+      <div class="hud-score def-score" id="hud-def-score">0</div>
+    </div>
+    <div class="hud-spike-bar" id="hud-spike-bar">
+      <div class="spike-pulse-icon"></div>
+      <div class="spike-site-label" id="spike-site-label">SPIKE PLANTED · SITE A</div>
+      <div class="spike-timer-bar-wrap"><div class="spike-timer-bar" id="spike-timer-bar"></div></div>
+    </div>
+  </div>
+
+  <!-- Left: health + weapon + credits -->
+  <div class="hud-bottom-left">
+    <div class="hud-agent-icon" id="hud-agent-icon"></div>
+    <div class="hud-vitals">
+      <div class="hud-hp-row">
+        <div class="hud-hp-label">HP</div>
+        <div class="hud-hp-bar-wrap"><div class="hud-hp-bar" id="hud-hp-bar"></div></div>
+        <div class="hud-hp-num" id="hud-hp-num">100</div>
+      </div>
+      <div class="hud-armor-row">
+        <div class="hud-armor-label">🛡</div>
+        <div class="hud-armor-bar-wrap"><div class="hud-armor-bar" id="hud-armor-bar"></div></div>
+        <div class="hud-armor-num" id="hud-armor-num">0</div>
+      </div>
+      <div class="hud-weapon-row">
+        <div class="hud-weapon-name" id="hud-weapon-name">CLASSIC</div>
+        <div class="hud-ammo">
+          <span id="hud-ammo-cur">12</span><span class="ammo-sep">/</span><span id="hud-ammo-max">12</span>
+        </div>
+      </div>
+      <div class="hud-credits"><span class="cred-icon">◈</span><span id="hud-credits">800</span></div>
+    </div>
+  </div>
+
+  <!-- Center: abilities -->
+  <div class="hud-bottom-center">
+    <div class="hud-ab" id="hud-ab-q"><div class="ab-key">Q</div><div class="ab-icon" id="ab-icon-q">🔥</div><div class="ab-name" id="ab-name-q">FIREWALL</div><div class="ab-cd hidden" id="ab-cd-q"></div></div>
+    <div class="hud-ab" id="hud-ab-e"><div class="ab-key">E</div><div class="ab-icon" id="ab-icon-e">⚡</div><div class="ab-name" id="ab-name-e">DASH</div><div class="ab-cd hidden" id="ab-cd-e"></div></div>
+    <div class="hud-ab" id="hud-ab-c"><div class="ab-key">C</div><div class="ab-icon" id="ab-icon-c">💥</div><div class="ab-name" id="ab-name-c">GRENADE</div><div class="ab-cd hidden" id="ab-cd-c"></div></div>
+    <div class="hud-ab ult-ab" id="hud-ab-x"><div class="ab-key ult-key">X</div><div class="ab-icon" id="ab-icon-x">✦</div><div class="ab-name" id="ab-name-x">ULT</div><div class="ab-cd hidden" id="ab-cd-x"></div></div>
+  </div>
+
+  <!-- Right: team list -->
+  <div class="hud-bottom-right" id="hud-team-list"></div>
+
+  <!-- Kill feed (top-left) -->
+  <div class="hud-killfeed" id="hud-killfeed"></div>
+
+  <!-- Event notification (center) -->
+  <div class="hud-event" id="hud-event"></div>
+
+  <!-- Plant/Defuse progress (center-bottom) -->
+  <div class="hud-interact-bar hidden" id="hud-interact-bar">
+    <div class="interact-label" id="interact-label">PLANTING...</div>
+    <div class="interact-track"><div class="interact-fill" id="interact-fill"></div></div>
+  </div>
+
+  <!-- FPS -->
+  <div class="hud-fps hidden" id="hud-fps">60 FPS</div>
+
+  <!-- Bottom hint -->
+  <div class="hud-hint">TAB · Scoreboard &nbsp;|&nbsp; M · Minimap &nbsp;|&nbsp; B · Buy Menu &nbsp;|&nbsp; ESC · Pause</div>
+
+  <!-- Minimap -->
+  <div class="minimap-wrap" id="minimap-wrap">
+    <canvas id="minimap-canvas"></canvas>
+    <div class="minimap-label">ASHLANDS</div>
+  </div>
+
+  <!-- Buy panel -->
+  <div class="buy-panel hidden" id="buy-panel">
+    <div class="buy-header">
+      <span class="buy-title">BUY MENU</span>
+      <span class="buy-credits">◈ <span id="buy-credits-val">800</span></span>
+      <button class="buy-close" onclick="toggleBuyPanel()">✕</button>
+    </div>
+    <div class="buy-sections">
+      <div class="buy-section">
+        <div class="buy-section-title">PISTOLS</div>
+        <div class="buy-item" data-weapon="classic" onclick="buyItem('classic')"><span class="buy-name">CLASSIC</span><span class="buy-stat">12 · 26dmg</span><span class="buy-price free">FREE</span></div>
+        <div class="buy-item" data-weapon="sheriff" onclick="buyItem('sheriff')"><span class="buy-name">SHERIFF</span><span class="buy-stat">6 · 55dmg</span><span class="buy-price">◈ 800</span></div>
+      </div>
+      <div class="buy-section">
+        <div class="buy-section-title">SHOTGUNS / SMG</div>
+        <div class="buy-item" data-weapon="bucky" onclick="buyItem('bucky')"><span class="buy-name">BUCKY</span><span class="buy-stat">5 shells · 5×27dmg</span><span class="buy-price">◈ 850</span></div>
+        <div class="buy-item" data-weapon="spectre" onclick="buyItem('spectre')"><span class="buy-name">SPECTRE</span><span class="buy-stat">30 · 22dmg</span><span class="buy-price">◈ 1600</span></div>
+      </div>
+      <div class="buy-section">
+        <div class="buy-section-title">RIFLES</div>
+        <div class="buy-item" data-weapon="phantom" onclick="buyItem('phantom')"><span class="buy-name">PHANTOM</span><span class="buy-stat">30 · 39dmg</span><span class="buy-price">◈ 2900</span></div>
+        <div class="buy-item" data-weapon="vandal" onclick="buyItem('vandal')"><span class="buy-name">VANDAL</span><span class="buy-stat">25 · 40dmg</span><span class="buy-price">◈ 2900</span></div>
+        <div class="buy-item" data-weapon="operator" onclick="buyItem('operator')"><span class="buy-name">OPERATOR</span><span class="buy-stat">5 · 150dmg</span><span class="buy-price">◈ 4700</span></div>
+      </div>
+      <div class="buy-section">
+        <div class="buy-section-title">ARMOR</div>
+        <div class="buy-item" data-weapon="lightarmor" onclick="buyItem('lightarmor')"><span class="buy-name">LIGHT ARMOR</span><span class="buy-stat">+25 armor</span><span class="buy-price">◈ 400</span></div>
+        <div class="buy-item" data-weapon="heavyarmor" onclick="buyItem('heavyarmor')"><span class="buy-name">HEAVY ARMOR</span><span class="buy-stat">+50 armor</span><span class="buy-price">◈ 1000</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scoreboard -->
+  <div class="scoreboard-overlay hidden" id="scoreboard-overlay">
+    <div class="scoreboard-panel">
+      <div class="sb-header">
+        <span class="sb-logo">CROSSFIRE PROTOCOL</span>
+        <span class="sb-score"><span class="atk-col" id="sb-atk">0</span> : <span class="def-col" id="sb-def">0</span></span>
+      </div>
+      <div class="sb-teams">
+        <div class="sb-team-block atk-block">
+          <div class="sb-team-title atk-col">ATTACKERS</div>
+          <div class="sb-rows" id="sb-atk-rows"></div>
+        </div>
+        <div class="sb-team-block def-block">
+          <div class="sb-team-title def-col">DEFENDERS</div>
+          <div class="sb-rows" id="sb-def-rows"></div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════════ SETTINGS -->
-    <div id="settings-screen" class="screen">
-      <div class="modal-bg" onclick="showScreen('main-menu')"></div>
-      <div class="modal-panel">
-        <div class="modal-header">
-          <span class="modal-title">SETTINGS</span>
-          <button class="modal-close" onclick="showScreen('main-menu')">✕</button>
-        </div>
-        <div class="modal-body">
-          <div class="setting-group">
-            <div class="setting-label">CROSSHAIR COLOR</div>
-            <div class="setting-swatches">
-              <div class="swatch active" data-color="#f5c542" style="background:#f5c542" onclick="setSetting('crosshairColor',this)"></div>
-              <div class="swatch" data-color="#00ff88" style="background:#00ff88" onclick="setSetting('crosshairColor',this)"></div>
-              <div class="swatch" data-color="#ff4444" style="background:#ff4444" onclick="setSetting('crosshairColor',this)"></div>
-              <div class="swatch" data-color="#4ea1ff" style="background:#4ea1ff" onclick="setSetting('crosshairColor',this)"></div>
-              <div class="swatch" data-color="#ffffff" style="background:#ffffff" onclick="setSetting('crosshairColor',this)"></div>
-            </div>
-          </div>
-          <div class="setting-group">
-            <div class="setting-label">CROSSHAIR STYLE</div>
-            <div class="setting-btns" id="crosshair-style-btns">
-              <button class="setting-btn active" data-val="cross" onclick="setSetting('crosshairStyle',this)">+</button>
-              <button class="setting-btn" data-val="dot" onclick="setSetting('crosshairStyle',this)">•</button>
-              <button class="setting-btn" data-val="circle" onclick="setSetting('crosshairStyle',this)">○</button>
-            </div>
-          </div>
-          <div class="setting-group">
-            <div class="setting-label">HUD OPACITY</div>
-            <input type="range" class="setting-slider" id="hud-opacity" min="40" max="100" value="90" oninput="setSetting('hudOpacity',this)">
-            <span class="setting-val" id="hud-opacity-val">90%</span>
-          </div>
-          <div class="setting-group">
-            <div class="setting-label">MINIMAP SIZE</div>
-            <input type="range" class="setting-slider" id="minimap-size" min="140" max="300" value="220" oninput="setSetting('minimapSize',this)">
-            <span class="setting-val" id="minimap-size-val">220px</span>
-          </div>
-          <div class="setting-group">
-            <div class="setting-label">SHOW FPS COUNTER</div>
-            <label class="toggle-switch">
-              <input type="checkbox" id="fps-toggle" onchange="setSetting('showFps',this)">
-              <span class="toggle-track"><span class="toggle-thumb"></span></span>
-            </label>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button class="as-btn-lock menu-btn-primary-sm" onclick="showScreen('main-menu')">SAVE & CLOSE</button>
-        </div>
-      </div>
+  <!-- Round end -->
+  <div class="round-end-overlay hidden" id="round-end-overlay">
+    <div class="round-end-inner">
+      <div class="round-end-label" id="re-label">ROUND OVER</div>
+      <div class="round-end-winner" id="re-winner">DEFENDERS WIN</div>
+      <div class="round-end-reason" id="re-reason">TIME EXPIRED</div>
+      <div class="round-end-bar"></div>
     </div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════════ CONNECTING OVERLAY -->
-    <div id="connecting-overlay" class="screen">
-      <div class="conn-spinner-wrap">
-        <div class="conn-spinner"></div>
-        <div class="conn-label">CONNECTING TO SERVER...</div>
-        <div class="conn-sublabel" id="conn-sublabel">Establishing secure channel</div>
-      </div>
+  <!-- Match over -->
+  <div class="match-over-overlay hidden" id="match-over-overlay">
+    <div class="match-over-inner">
+      <div class="match-over-title" id="mo-title">VICTORY</div>
+      <div class="match-over-score" id="mo-score">13 : 7</div>
+      <button class="lock-btn" onclick="quitToMenu()">MAIN MENU</button>
     </div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════════ GAME CANVAS -->
-    <canvas id="game"></canvas>
+  <!-- Dead / Spectating overlay -->
+  <div class="dead-overlay hidden" id="dead-overlay">
+    <div class="dead-label">YOU HAVE BEEN ELIMINATED</div>
+    <div class="dead-sub">Spectating...</div>
+  </div>
 
-    <!-- ═══════════════════════════════════════════════ GAME HUD OVERLAY -->
-    <div id="game-hud" class="hidden">
+  <!-- Ability target cursor indicator -->
+  <div class="ability-cursor hidden" id="ability-cursor"></div>
+</div>
 
-      <!-- Top-center: Phase timer + round score -->
-      <div class="hud-top">
-        <div class="hud-score-panel">
-          <div class="hud-team-score attacker-score" id="hud-attacker-score">0</div>
-          <div class="hud-timer-center">
-            <div class="hud-phase-label" id="hud-phase-label">BUY PHASE</div>
-            <div class="hud-timer" id="hud-timer">12</div>
-          </div>
-          <div class="hud-team-score defender-score" id="hud-defender-score">0</div>
-        </div>
-        <div class="hud-spike-indicator" id="hud-spike-indicator">
-          <div class="spike-pulse-dot"></div>
-          <span>SPIKE PLANTED</span>
-        </div>
-      </div>
+<!-- ESC pause menu -->
+<div class="esc-menu hidden" id="esc-menu">
+  <div class="esc-panel">
+    <div class="esc-title">PAUSED</div>
+    <button class="menu-btn esc-btn" onclick="closeEscMenu()">RESUME</button>
+    <button class="menu-btn esc-btn" onclick="showScreen('settings-screen')">SETTINGS</button>
+    <button class="menu-btn esc-btn danger" onclick="quitToMenu()">QUIT TO MENU</button>
+  </div>
+</div>
 
-      <!-- Bottom-left: Health + ammo + weapon -->
-      <div class="hud-bottom-left">
-        <div class="hud-health-section">
-          <div class="hud-health-label">HP</div>
-          <div class="hud-health-bar-wrap">
-            <div class="hud-health-bar" id="hud-health-bar"></div>
-          </div>
-          <div class="hud-health-num" id="hud-health-num">100</div>
-        </div>
-        <div class="hud-weapon-section">
-          <div class="hud-weapon-name" id="hud-weapon-name">PISTOL</div>
-          <div class="hud-ammo">
-            <span class="hud-ammo-cur" id="hud-ammo-cur">12</span>
-            <span class="hud-ammo-sep">/</span>
-            <span class="hud-ammo-max" id="hud-ammo-max">12</span>
-          </div>
-          <div class="hud-reload-bar-wrap hidden" id="hud-reload-wrap">
-            <div class="hud-reload-bar" id="hud-reload-bar"></div>
-            <div class="hud-reload-label">RELOADING</div>
-          </div>
-        </div>
-        <div class="hud-credits-section">
-          <span class="hud-credits-icon">◈</span>
-          <span class="hud-credits-val" id="hud-credits-val">800</span>
-        </div>
-      </div>
-
-      <!-- Bottom-center: Abilities -->
-      <div class="hud-bottom-center">
-        <div class="hud-ability" id="hud-ability-1">
-          <div class="hud-ability-key">3</div>
-          <div class="hud-ability-icon dash-icon">⚡</div>
-          <div class="hud-ability-name">DASH</div>
-          <div class="hud-ability-cd hidden" id="hud-cd-1">0s</div>
-        </div>
-        <div class="hud-ability" id="hud-ability-2">
-          <div class="hud-ability-key">4</div>
-          <div class="hud-ability-icon heal-icon">✚</div>
-          <div class="hud-ability-name">HEAL</div>
-          <div class="hud-ability-cd hidden" id="hud-cd-2">0s</div>
-        </div>
-        <div class="hud-ability" id="hud-ability-3">
-          <div class="hud-ability-key">5</div>
-          <div class="hud-ability-icon smoke-icon">◎</div>
-          <div class="hud-ability-name">SMOKE</div>
-          <div class="hud-ability-cd hidden" id="hud-cd-3">0s</div>
-        </div>
-      </div>
-
-      <!-- Bottom-right: Team list -->
-      <div class="hud-bottom-right" id="hud-team-list"></div>
-
-      <!-- Top-left: Kill feed -->
-      <div class="hud-killfeed" id="hud-killfeed"></div>
-
-      <!-- Buy phase overlay -->
-      <div class="hud-buy-panel" id="hud-buy-panel">
-        <div class="buy-panel-title">BUY PHASE</div>
-        <div class="buy-panel-subtitle" id="buy-balance-label">CREDITS: 800</div>
-        <div class="buy-options">
-          <div class="buy-item" onclick="triggerBuy('pistol')">
-            <div class="buy-key">1</div>
-            <div class="buy-info">
-              <div class="buy-name">CLASSIC</div>
-              <div class="buy-desc">12 shots · Semi-auto</div>
-            </div>
-            <div class="buy-cost free-cost">FREE</div>
-          </div>
-          <div class="buy-item" onclick="triggerBuy('shotgun')">
-            <div class="buy-key">3</div>
-            <div class="buy-info">
-              <div class="buy-name">BUCKY</div>
-              <div class="buy-desc">5 shots · Shotgun</div>
-            </div>
-            <div class="buy-cost">◈ 850</div>
-          </div>
-          <div class="buy-item" onclick="triggerBuy('rifle')">
-            <div class="buy-key">2</div>
-            <div class="buy-info">
-              <div class="buy-name">VANDAL</div>
-              <div class="buy-desc">25 shots · Full-auto</div>
-            </div>
-            <div class="buy-cost">◈ 1200</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Round end overlay -->
-      <div class="hud-round-end hidden" id="hud-round-end">
-        <div class="round-end-content">
-          <div class="round-end-label" id="round-end-label">ROUND OVER</div>
-          <div class="round-end-winner" id="round-end-winner">DEFENDERS WIN</div>
-          <div class="round-end-bar"></div>
-        </div>
-      </div>
-
-      <!-- Event notifications -->
-      <div class="hud-event-notify" id="hud-event-notify"></div>
-
-      <!-- FPS counter -->
-      <div class="hud-fps hidden" id="hud-fps">60 FPS</div>
-
-      <!-- Toggle hint -->
-      <div class="hud-toggle-hint" id="hud-toggle-hint">Press <kbd>TAB</kbd> for scoreboard · <kbd>H</kbd> for debug info · <kbd>ESC</kbd> for menu</div>
-
-      <!-- Scoreboard overlay (TAB) -->
-      <div class="hud-scoreboard-overlay hidden" id="hud-scoreboard-overlay">
-        <div class="scoreboard-panel">
-          <div class="scoreboard-header">
-            <div class="sb-logo">CROSSFIRE PROTOCOL</div>
-            <div class="sb-scores">
-              <span class="sb-team attacker-col" id="sb-atk-score">0</span>
-              <span class="sb-sep">:</span>
-              <span class="sb-team defender-col" id="sb-def-score">0</span>
-            </div>
-          </div>
-          <div class="scoreboard-body" id="scoreboard-body"></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ESC Menu (in-game pause) -->
-    <div class="esc-menu hidden" id="esc-menu">
-      <div class="esc-panel">
-        <div class="esc-title">PAUSED</div>
-        <button class="menu-btn esc-menu-btn" onclick="closeEscMenu()">RESUME</button>
-        <button class="menu-btn esc-menu-btn" onclick="showScreen('settings-screen')">SETTINGS</button>
-        <button class="menu-btn esc-menu-btn danger-btn" onclick="quitToMenu()">QUIT TO MENU</button>
-      </div>
-    </div>
-
-    <script type="module" src="main.js"></script>
-  </body>
+<script src="main.js"></script>
+</body>
 </html>
